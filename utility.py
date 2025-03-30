@@ -4,6 +4,8 @@ import random
 import time
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth, RequestError
 from retrying import retry
+from sagemaker import get_execution_role
+
 
 suffix = random.randrange(200, 900)
 boto3_session = boto3.session.Session()
@@ -220,13 +222,16 @@ def create_knowledge_base(index_name, collection_name, knowledge_base_name, vect
        }
     }
     
-    # Use the function
-    all_roles = get_all_roles(iam_client)
+    # # Use the function
+    # all_roles = get_all_roles(iam_client)
 
-    # Use the function
-    matching_roles = get_matching_roles(all_roles, 'AmazonBedrockExecutionRoleForKnowledgeBases')
+    # # Use the function
+    # matching_roles = get_matching_roles(all_roles, 'AmazonBedrockExecutionRoleForKnowledgeBases')
 
-    bedrock_kb_execution_role_arn = matching_roles[0]["Arn"]
+    # bedrock_kb_execution_role_arn = matching_roles[0]["Arn"]
+
+
+    bedrock_kb_execution_role_arn = get_execution_role()
 
     # create data access policy within OSS
     try:
