@@ -232,7 +232,7 @@ def create_knowledge_base(index_name, collection_name, knowledge_base_name, vect
 
 
     bedrock_kb_execution_role_arn = get_execution_role()
-
+    print('bedrock kb execution role',bedrock_kb_execution_role_arn)
     # create data access policy within OSS
     try:
         response = aoss_client.list_access_policies(maxResults=100,type='data')
